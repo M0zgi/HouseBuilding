@@ -17,22 +17,6 @@ namespace HouseBuilding
     }
     interface IWorker
     {
-        ////проверка наличия фундамента
-        //bool checkBasement();
-        ////проверка наличия стен
-        //bool checkWalls();
-        ////проверка наличия дверей
-        //bool checkDoor();
-        ////проверка наличия окон
-        //bool checkWindows();
-
-        //bool chechRoof();
-
-        //этап строительсва 
-        //int СonstructionStage { get; set; }
-
-        // void chekResults(House house);
-
         string WhatToBuild(House house);
     }
 
@@ -523,9 +507,6 @@ namespace HouseBuilding
             
             Console.WriteLine(house);
 
-
-            //Basement b = new Basement();
-
             Basement basement = new Basement();
             Walls walls = new Walls();
             Windows windows = new Windows();
@@ -536,8 +517,7 @@ namespace HouseBuilding
             walls.Print(house);
             windows.Print(house);
             door.Print(house);
-            roof.Print(house);
-            
+            roof.Print(house);            
 
             Console.WriteLine("\n\n\n\n");
         }
