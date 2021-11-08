@@ -40,48 +40,8 @@ namespace HouseBuilding
     {
         //имя бригады
         public string TeamName { get; set; }
-        //public int СonstructionStage { get; set; }
 
-        protected House house;
-       
-        //public bool checkBasement()
-        //{
-        //    if(house.СonstructionStage < 1)
-        //    return false;
-            
-        //    return true;
-        //}
-
-        //public bool checkWalls()
-        //{
-        //    if (house.СonstructionStage < 2)
-        //        return false;
-
-        //    return true;
-        //}
-
-        //public bool checkWindows()
-        //{
-        //    if (house.СonstructionStage < 3)
-        //        return false;
-
-        //    return true;
-        //}
-
-        //public bool checkDoor()
-        //{
-        //    if (house.СonstructionStage < 4)
-        //        return false;
-
-        //    return true;
-        //}
-        //public bool chechRoof()
-        //{
-        //    if (house.СonstructionStage < 5)
-        //        return false;
-
-        //    return true;
-        //}
+        protected House house;  
 
         public Team(string teamname) 
         {
@@ -294,7 +254,7 @@ namespace HouseBuilding
         //проверка наличия окон
         bool checkWindows();
         //проверка наличия крыши
-        bool chechRoof();
+        bool checkRoof();
 
         //этап строительсва (0 - ничего не построено, 1 + фундамент, 2 + стены, 3 + окна, 4 + двери
 
@@ -304,7 +264,7 @@ namespace HouseBuilding
     {
         public string hName { get; set; }
         public int СonstructionStage { get; set; }
-
+        public House(){}
         public House(string name)
         {
             hName = name;
@@ -341,7 +301,7 @@ namespace HouseBuilding
 
             return false;            
         }
-        public bool chechRoof()
+        public bool checkRoof()
         {
             if (СonstructionStage > 10)
                 return true;
@@ -387,7 +347,7 @@ namespace HouseBuilding
                 count++;
             }
 
-            check = this.chechRoof();
+            check = this.checkRoof();
 
             if (check)
             {
@@ -403,30 +363,92 @@ namespace HouseBuilding
             if (count < 0)
             {
                 reportСonstruction = "Дом еще не строился.";
-            }             
-         
+            }          
         }
+
+        public override string ToString()
+        {
+            return $"Название дома: {hName} ";
+        }
+
+        public void Print(House h) { Console.WriteLine(h.hName); }
     }
 
     class Basement : House    
     {
         public Basement(string name) : base(name) { }
+
+        public Basement() { }
+
+
+        public new void Print(House h)
+        {
+            if (h.checkBasement())
+                Console.WriteLine("Рисую фундамент");
+
+            else
+                Console.WriteLine("Фундамент не могу нарисовать(его нет)");
+        }
     }
     class Walls : House
     {
+        
         public Walls(string name) : base(name) { }
+
+        public Walls() { }
+
+        public new void Print(House h)
+        {
+            if (h.checkWalls())
+                Console.WriteLine("Рисую стены");
+
+            else
+                Console.WriteLine("Стены не могу нарисовать(их нет)");
+        }
     }
     class Door : House
     {
         public Door(string name) : base(name) { }
+        public Door() { }
+       
+
+        public new void Print(House h)
+        {
+            if (h.checkDoor())
+                Console.WriteLine("Рисую двери"); 
+
+            else
+                Console.WriteLine("Двери не могу нарисовать(их нет)");
+        }
     }
     class Windows : House
     {
         public Windows(string name) : base(name) { }
+        public Windows() { }
+    
+
+        public new void Print(House h)
+        {
+            if (h.checkWindows())
+                Console.WriteLine("Рисую окна");
+
+            else
+                Console.WriteLine("Окна не могу нарисовать(их нет)");
+        }
     }
     class Roof : House
     {
         public Roof(string name) : base(name) { }
+        public Roof() { }
+
+        public new void Print(House h)
+        {
+            if (h.checkRoof())
+                Console.WriteLine("Рисую крышу");
+
+            else
+                Console.WriteLine("Крышу не могу нарисовать(ее нет)");
+        }
     }
     
 
@@ -497,10 +519,27 @@ namespace HouseBuilding
             Console.WriteLine("\n");
             Console.WriteLine("Бригадир печатает отчет, что уже построено по указанному дому: ");
             leader.PrintReport(house);
+            Console.WriteLine("\n\n");       
+            
+            Console.WriteLine(house);
+
+
+            //Basement b = new Basement();
+
+            Basement basement = new Basement();
+            Walls walls = new Walls();
+            Windows windows = new Windows();
+            Door door = new Door();            
+            Roof roof = new Roof();
+
+            basement.Print(house);
+            walls.Print(house);
+            windows.Print(house);
+            door.Print(house);
+            roof.Print(house);
+            
 
             Console.WriteLine("\n\n\n\n");
-
-
         }
     }
 }
