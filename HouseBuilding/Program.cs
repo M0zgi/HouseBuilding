@@ -8,48 +8,77 @@ namespace HouseBuilding
 {
     interface IWorker
     {
+        //проверка наличия фундамента
         bool checkBasement();
+        //проверка наличия стен
         bool checkWalls();
+        //проверка наличия дверей
         bool checkDoor();
+        //проверка наличия окон
         bool checkWindow();
 
+        //этап строительсва (0 - ничего не построено, 1 + фундамент, 2 + стены, 3 + окна, 4 + двери
         int СonstructionStage { get; set; }
-
-
     }
 
     class Team: IWorker
     {
+        //имя бригады
         public string TeamName { get; set; }
-        public int СonstructionStage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        //имена строителя, бригадира команды
+        public string HumanName { get; set; }
+
+        public int СonstructionStage { get; set; }
 
         public bool checkBasement()
         {
-            throw new NotImplementedException();
-        }
+            if(СonstructionStage < 1)
+            return false;
 
-        public bool checkDoor()
-        {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool checkWalls()
         {
-            throw new NotImplementedException();
+            if (СonstructionStage < 2)
+                return false;
+
+            return true;
         }
 
         public bool checkWindow()
         {
-            throw new NotImplementedException();
+            if (СonstructionStage < 3)
+                return false;
+
+            return true;
+        }
+
+        public bool checkDoor()
+        {
+            if (СonstructionStage < 4)
+                return false;
+
+            return true;
+        }
+
+        public Team(string teamname, string humanname) 
+        {
+            TeamName = teamname;
+            HumanName = humanname;
         }
     }
     class Worker : Team
     {
-
+        public Worker(string teamname, string humanname) : base(teamname, humanname) { }
+        public string Build { get; set; }
     }
     class TeamLeader : Team
     {
+        public TeamLeader(string teamname, string humanname) : base(teamname, humanname) { }
 
+        public string reportСonstruction { get; set; }
     }
 
     interface IPart
@@ -58,6 +87,7 @@ namespace HouseBuilding
     }
     class House
     {
+
     }
 
     class Basement : House
@@ -86,6 +116,11 @@ namespace HouseBuilding
     {
         static void Main(string[] args)
         {
+
+
+
+
+
         }
     }
 }
