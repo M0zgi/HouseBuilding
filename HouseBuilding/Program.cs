@@ -197,9 +197,22 @@ namespace HouseBuilding
 
     interface IPart
     {
+        //проверка наличия фундамента
+        bool checkBasement();
+        //проверка наличия стен
+        bool checkWalls();
+        //проверка наличия дверей
+        bool checkDoor();
+        //проверка наличия окон
+        bool checkWindows();
+        //проверка наличия крыши
+        bool chechRoof();
 
+        //этап строительсва (0 - ничего не построено, 1 + фундамент, 2 + стены, 3 + окна, 4 + двери
+
+        int СonstructionStage { get; set; }
     }
-    class House : IWorker
+    class House : IPart
     {
         public string hName { get; set; }
         public int СonstructionStage { get; set; }
