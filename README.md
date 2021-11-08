@@ -9,6 +9,7 @@
 - классы
 
 -- House (Дом), Basement (Фундамент), Walls (Стены), Door (Дверь), Window (Окно), Roof (Крыша)
+
 -- Team (Бригада строителей), Worker (Строитель), TeamLeader (Бригадир),
 
 - интерфейсы: IWorker, IPart.
