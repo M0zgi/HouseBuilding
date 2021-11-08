@@ -6,71 +6,82 @@ using System.Threading.Tasks;
 
 namespace HouseBuilding
 {
+
+    enum Parts
+    { 
+        Basement, 
+        Walls,
+        Door,
+        Windows,
+        Roof
+    }
     interface IWorker
     {
-        //проверка наличия фундамента
-        bool checkBasement();
-        //проверка наличия стен
-        bool checkWalls();
-        //проверка наличия дверей
-        bool checkDoor();
-        //проверка наличия окон
-        bool checkWindows();
+        ////проверка наличия фундамента
+        //bool checkBasement();
+        ////проверка наличия стен
+        //bool checkWalls();
+        ////проверка наличия дверей
+        //bool checkDoor();
+        ////проверка наличия окон
+        //bool checkWindows();
 
-        bool chechRoof();
+        //bool chechRoof();
 
-        //этап строительсва (0 - ничего не построено, 1 + фундамент, 2 + стены, 3 + окна, 4 + двери
+        //этап строительсва 
+        //int СonstructionStage { get; set; }
 
-        int СonstructionStage { get; set; }
-        
+        // void chekResults(House house);
+
+        string WhatToBuild(House house);
     }
 
-    class Team: IWorker
+    abstract class Team: IWorker
     {
         //имя бригады
         public string TeamName { get; set; }
-        public int СonstructionStage { get; set; }
+        //public int СonstructionStage { get; set; }
 
         protected House house;
        
-        public bool checkBasement()
-        {
-            if(house.СonstructionStage < 1)
-            return false;
+        //public bool checkBasement()
+        //{
+        //    if(house.СonstructionStage < 1)
+        //    return false;
             
-            return true;
-        }
+        //    return true;
+        //}
 
-        public bool checkWalls()
-        {
-            if (house.СonstructionStage < 2)
-                return false;
+        //public bool checkWalls()
+        //{
+        //    if (house.СonstructionStage < 2)
+        //        return false;
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public bool checkWindows()
-        {
-            if (house.СonstructionStage < 3)
-                return false;
+        //public bool checkWindows()
+        //{
+        //    if (house.СonstructionStage < 3)
+        //        return false;
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public bool checkDoor()
-        {
-            if (house.СonstructionStage < 4)
-                return false;
+        //public bool checkDoor()
+        //{
+        //    if (house.СonstructionStage < 4)
+        //        return false;
 
-            return true;
-        }
-        public bool chechRoof()
-        {
-            if (house.СonstructionStage < 5)
-                return false;
+        //    return true;
+        //}
+        //public bool chechRoof()
+        //{
+        //    if (house.СonstructionStage < 5)
+        //        return false;
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public Team(string teamname) 
         {
@@ -81,6 +92,9 @@ namespace HouseBuilding
         {
             return $"Имя бригады: {TeamName}";
         }
+
+        public abstract string WhatToBuild(House house);
+      
     }
     class Worker : Team
     {
@@ -100,28 +114,64 @@ namespace HouseBuilding
             if (WhatToBuild == "Walls" && house.СonstructionStage == 1)
             {
                 house.СonstructionStage = 2;
-                return "Строю стены";
+                return "Строю первую стену";
             }
 
-            if (WhatToBuild == "Windows" && house.СonstructionStage == 2)
+            if (WhatToBuild == "Walls" && house.СonstructionStage == 2)
             {
                 house.СonstructionStage = 3;
-                return "Ставлю окна";
+                return "Строю вторую стену";
             }
 
-            if (WhatToBuild == "Door" && house.СonstructionStage == 3)
+            if (WhatToBuild == "Walls" && house.СonstructionStage == 3)
             {
                 house.СonstructionStage = 4;
+                return "Строю третью стену";
+            }
+
+            if (WhatToBuild == "Walls" && house.СonstructionStage == 4)
+            {
+                house.СonstructionStage = 5;
+                return "Строю четвертую стену";
+            }
+
+            if (WhatToBuild == "Windows" && house.СonstructionStage == 5)
+            {
+                house.СonstructionStage = 6;
+                return "Ставлю первое окно";
+            }
+
+            if (WhatToBuild == "Windows" && house.СonstructionStage == 6)
+            {
+                house.СonstructionStage = 7;
+                return "Ставлю второе окно";
+            }
+
+            if (WhatToBuild == "Windows" && house.СonstructionStage == 7)
+            {
+                house.СonstructionStage = 8;
+                return "Ставлю третье окно";
+            }
+
+            if (WhatToBuild == "Windows" && house.СonstructionStage == 8)
+            {
+                house.СonstructionStage = 9;
+                return "Ставлю четвертое окно";
+            }
+
+            if (WhatToBuild == "Door" && house.СonstructionStage == 9)
+            {
+                house.СonstructionStage = 10;
                 return "Устанавливаю дверь";
             }
 
-            if (WhatToBuild == "Roof" && house.СonstructionStage == 4)
+            if (WhatToBuild == "Roof" && house.СonstructionStage == 10)
             {
-                house.СonstructionStage = 5;
+                house.СonstructionStage = 11;
                 return "Строю крышу";
             }
 
-            if (house.СonstructionStage == 5)
+            if (house.СonstructionStage == 11)
             {
                 return "Дом уже был простроен";
             }
@@ -136,26 +186,62 @@ namespace HouseBuilding
                 return "Эта часть дома не предусмотрена в конструкции";
             }            
         }
-        public string WhatToBuild(House house)
+        public override string WhatToBuild(House house)
         {
             if (house.СonstructionStage == 1)
             {
-                return "Строй стены";
+                return "Строй первую стену";
             }
-            
+
             if (house.СonstructionStage == 2)
             {
-                return "Ставь окна";
+                return "Строй вторую стену";
             }
-            
+
             if (house.СonstructionStage == 3)
             {
-                return "Устанавливай дверь";
+                return "Строй третью стену";
+
             }
 
             if (house.СonstructionStage == 4)
             {
+                return "Строй четвертую стену";
+            }
+
+            if (house.СonstructionStage == 5)
+            {
+                return "Ставь первое окно";
+            }
+
+            if (house.СonstructionStage == 6)
+            {
+                return "Ставь второе окно";
+            }
+
+            if (house.СonstructionStage == 7)
+            {
+                return "Ставь третье окно";
+            }
+
+            if (house.СonstructionStage == 8)
+            {
+                return "Ставь четвертое окно";
+            }
+
+            if (house.СonstructionStage == 9)
+            {
+                return "Устанавливай дверь";
+            }
+
+            if (house.СonstructionStage == 10)
+            {
                 return "Последний этап строительства. Делай крышу";
+            }
+
+            if (house.СonstructionStage == 11)
+            {
+                return "Дом полностью построен! Ура, товарищи!";
             }
 
             return "Дом еще не строился. Начинай с фундамента.";
@@ -176,9 +262,11 @@ namespace HouseBuilding
             HumanName = humanname;
         }       
 
-        public void chekResults(House house)
+        public override string WhatToBuild (House house)
         { 
-            house.SetСonstruction();                       
+            house.SetСonstruction();
+
+            return "Отчет сформирован";
         }
 
         //имя бригадира команды
@@ -224,41 +312,41 @@ namespace HouseBuilding
 
         public bool checkBasement()
         {
-            if (СonstructionStage < 1)
-                return false;
+            if (СonstructionStage > 0)
+                return true;
 
-            return true;
+            return false;           
         }
 
         public bool checkWalls()
         {
-            if (СonstructionStage < 2)
-                return false;
-
-            return true;
+            if (СonstructionStage > 4)
+                return true;
+            
+            return false;           
         }
 
         public bool checkWindows()
         {
-            if (СonstructionStage < 3)
-                return false;
+            if (СonstructionStage > 8)
+                return true;
 
-            return true;
+            return false;            
         }
 
         public bool checkDoor()
         {
-            if (СonstructionStage < 4)
-                return false;
+            if (СonstructionStage > 9)
+                return true;
 
-            return true;
+            return false;            
         }
         public bool chechRoof()
         {
-            if (СonstructionStage < 5)
-                return false;
+            if (СonstructionStage > 10)
+                return true;
 
-            return true;
+            return false;            
         }
 
         public string reportСonstruction { get; set; }
@@ -307,7 +395,7 @@ namespace HouseBuilding
                 count++;
             }
 
-            if (СonstructionStage == 5)
+            if (СonstructionStage == 11)
             {
                 reportСonstruction += "Дом полностью построен.";
             }
@@ -347,16 +435,18 @@ namespace HouseBuilding
         static void Main(string[] args)
         {
             //создаем команду
-            Team team = new Team("MyTeam");
+            //Team team = new Team("MyTeam");
+
+            string MyTeam = "MyTeam";
 
             //создаем дом
             House house = new House("Первый дом");
 
             //создаем строителя и закрепляем за ним дом
-            Worker builder = new Worker(team.TeamName, "Ivan (строитель)");
+            Worker builder = new Worker(MyTeam, "Ivan (строитель)");
 
             //создаем бригадира и закрепляем за ним дом
-            TeamLeader leader = new TeamLeader(team.TeamName, "Sergey (бригадир)");
+            TeamLeader leader = new TeamLeader(MyTeam, "Sergey (бригадир)");
 
             Console.Write("Cтроитель уточняет, что нужно строить: ");         
             Console.WriteLine(builder.WhatToBuild(house));
@@ -366,14 +456,46 @@ namespace HouseBuilding
             Console.WriteLine("\n");
             Console.Write("Cтроитель отвечает, что начал строить: ");
             Console.WriteLine(builder.Build("Walls", house));
+            Console.Write("Cтроитель отвечает, что начал строить: ");
+            Console.WriteLine(builder.Build("Walls", house));
+            Console.Write("Cтроитель отвечает, что начал строить: ");
+            Console.WriteLine(builder.Build("Walls", house));
+
+
             Console.WriteLine("\n");
             Console.Write("Cтроитель спрашивает, что дальше строить: ");
             Console.WriteLine(builder.WhatToBuild(house));
+
+            Console.Write("Cтроитель отвечает, что начал строить: ");
+            Console.WriteLine(builder.Build("Walls", house));
             Console.WriteLine("\n");
-            Console.WriteLine("Бригадир проверяет что уже построено по указанному дому и заносит в отчет по дому (операция происходит под капотом)");
+            Console.Write("Cтроитель спрашивает, что дальше строить: ");
+            Console.WriteLine(builder.WhatToBuild(house));
+            //---------------- Что бы полностью построить дом, раскомментировать ниже код ----------------//
+
+            //string myParts = Parts.Walls.ToString();
+
+            //builder.Build(myParts, house);
+
+            //myParts = Parts.Windows.ToString();
+            //builder.Build(myParts, house);
+            //builder.Build(myParts, house);
+            //builder.Build(myParts, house);
+            //builder.Build(myParts, house);
+
+            //myParts = Parts.Door.ToString();
+            //builder.Build(myParts, house);
+
+            //myParts = Parts.Roof.ToString();
+            //builder.Build(myParts, house);
+
+            //-------------------------------------------------------------------------------------------//
+
             Console.WriteLine("\n");
-            leader.chekResults(house);
-            Console.Write("Бригадир печатает отчет, что уже построено по указанному дому: ");
+            Console.WriteLine("Бригадир проверяет что уже построено по указанному дому и заносит в отчет по дому");
+            Console.WriteLine(leader.WhatToBuild(house));
+            Console.WriteLine("\n");
+            Console.WriteLine("Бригадир печатает отчет, что уже построено по указанному дому: ");
             leader.PrintReport(house);
 
             Console.WriteLine("\n\n\n\n");
