@@ -88,9 +88,6 @@ namespace HouseBuilding
         {
             HumanName = humanname;
         }
-        // private string Build;
-
-        //public string BuildStatus { get; set; }
 
         public string Build(string WhatToBuild, House house)
         {
@@ -137,8 +134,7 @@ namespace HouseBuilding
             else
             {
                 return "Эта часть дома не предусмотрена в конструкции";
-            }
-            
+            }            
         }
         public string WhatToBuild(House house)
         {
@@ -165,8 +161,7 @@ namespace HouseBuilding
             return "Дом еще не строился. Начинай с фундамента.";
         }
 
-
-        //имена строителя
+        //имя строителя
         public string HumanName { get; set; }
 
         public override string ToString()
@@ -179,26 +174,11 @@ namespace HouseBuilding
         public TeamLeader(string teamname, string humanname) : base(teamname)         
         {
             HumanName = humanname;
-        }
-
-        // public string reportСonstruction { get; set; }
-
-        
+        }       
 
         public void chekResults(House house)
-        {      
-           
-           
-            house.SetСonstruction();
-            
-            //house.checkBasement())
-            //house.checkWalls();
-            
-            //house.checkWindows();
-            
-            //house.checkDoor();
-            
-            //house.chechRoof();           
+        { 
+            house.SetСonstruction();                       
         }
 
         //имя бригадира команды
@@ -353,25 +333,34 @@ namespace HouseBuilding
     {
         static void Main(string[] args)
         {
+            //создаем команду
             Team team = new Team("MyTeam");
 
+            //создаем дом
             House house = new House("Первый дом");
 
+            //создаем строителя и закрепляем за ним дом
             Worker builder = new Worker(team.TeamName, "Ivan (строитель)");
 
+            //создаем бригадира и закрепляем за ним дом
             TeamLeader leader = new TeamLeader(team.TeamName, "Sergey (бригадир)");
 
+            Console.Write("Cтроитель уточняет, что нужно строить: ");         
             Console.WriteLine(builder.WhatToBuild(house));
+            Console.WriteLine("\n");
+            Console.Write("Cтроитель отвечает, что начал строить: ");
             Console.WriteLine(builder.Build("Basement", house));
+            Console.WriteLine("\n");
+            Console.Write("Cтроитель отвечает, что начал строить: ");
             Console.WriteLine(builder.Build("Walls", house));
+            Console.WriteLine("\n");
+            Console.Write("Cтроитель спрашивает, что дальше строить: ");
             Console.WriteLine(builder.WhatToBuild(house));
-
-
-            //Console.WriteLine(builder);
-            // Console.WriteLine(leader);
-
+            Console.WriteLine("\n");
+            Console.WriteLine("Бригадир проверяет что уже построено по указанному дому и заносит в отчет по дому (операция происходит под капотом)");
+            Console.WriteLine("\n");
             leader.chekResults(house);
-
+            Console.Write("Бригадир печатает отчет, что уже построено по указанному дому: ");
             leader.PrintReport(house);
 
             Console.WriteLine("\n\n\n\n");
