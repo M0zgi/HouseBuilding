@@ -507,17 +507,47 @@ namespace HouseBuilding
             
             Console.WriteLine(house);
 
-            Basement basement = new Basement();
-            Walls walls = new Walls();
-            Windows windows = new Windows();
-            Door door = new Door();            
-            Roof roof = new Roof();
+            House[] housePrint = new House[] { new Basement(), new Walls(), new Windows(), new Door(), new Roof() };
 
-            basement.Print(house);
-            walls.Print(house);
-            windows.Print(house);
-            door.Print(house);
-            roof.Print(house);            
+            foreach (var item in housePrint)
+            {
+                if (item is Basement)
+                {
+                    (item as Basement).Print(house);
+                }
+
+                if (item is Walls)
+                {
+                    (item as Walls).Print(house);
+                }
+
+                if (item is Windows)
+                {
+                    (item as Windows).Print(house);
+                }
+
+                if (item is Door)
+                {
+                    (item as Door).Print(house);
+                }
+
+                if (item is Roof)
+                {
+                    (item as Roof).Print(house);
+                }
+            }
+
+            //Basement basement = new Basement();
+            //Walls walls = new Walls();
+            //Windows windows = new Windows();
+            //Door door = new Door();            
+            //Roof roof = new Roof();
+
+            //basement.Print(house);
+            //walls.Print(house);
+            //windows.Print(house);
+            //door.Print(house);
+            //roof.Print(house);            
 
             Console.WriteLine("\n\n\n\n");
         }
