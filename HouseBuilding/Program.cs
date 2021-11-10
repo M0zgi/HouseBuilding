@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace HouseBuilding
 {
-
     enum Parts
     { 
         Basement, 
@@ -42,6 +41,47 @@ namespace HouseBuilding
     }
     class Worker : Team
     {
+        private const string WORKER_FIRST_MESSAGE = "Начинать нужно строить с фундамента!";
+        private const string WORKER_BASEMENT_MESSAGE = "Строю фундамент"; 
+        private const string WORKER_WALLS_1_MESSAGE = "Строю первую стену";
+        private const string WORKER_WALLS_2_MESSAGE = "Строю вторую стену";
+        private const string WORKER_WALLS_3_MESSAGE = "Строю третью стену";
+        private const string WORKER_WALLS_4_MESSAGE = "Строю четвертую стену";
+        private const string WORKER_WINDOWS_1_MESSAGE = "Ставлю первое окно";
+        private const string WORKER_WINDOWS_2_MESSAGE = "Ставлю второе окно";
+        private const string WORKER_WINDOWS_3_MESSAGE = "Ставлю третье окно";
+        private const string WORKER_WINDOWS_4_MESSAGE = "Ставлю четвертое окно";
+        private const string WORKER_DOOR_MESSAGE = "Устанавливаю дверь";
+        private const string WORKER_ROOF_MESSAGE = "Строю крышу";
+        private const string WORKER_FINISH_MESSAGE = "Дом уже был простроен";
+        private const string WORKER_ERROR_MESSAGE = "Эта часть дома не предусмотрена в конструкции";
+
+        private const string WHAT_TO_BUILD_BASEMENT_MESSAGE = "Дом еще не строился. Начинай с фундамента.";
+        private const string WHAT_TO_BUILD_WALLS_1_MESSAGE = "Строй первую стену";
+        private const string WHAT_TO_BUILD_WALLS_2_MESSAGE = "Строй вторую стену";
+        private const string WHAT_TO_BUILD_WALLS_3_MESSAGE = "Строй третью стену";
+        private const string WHAT_TO_BUILD_WALLS_4_MESSAGE = "Строй четвертую стену";
+        private const string WHAT_TO_BUILD_WINDOWS_1_MESSAGE = "Ставь первое окно";
+        private const string WHAT_TO_BUILD_WINDOWS_2_MESSAGE = "Ставь второе окно";
+        private const string WHAT_TO_BUILD_WINDOWS_3_MESSAGE = "Ставь третье окно";
+        private const string WHAT_TO_BUILD_WINDOWS_4_MESSAGE = "Ставь четвертое окно";
+        private const string WHAT_TO_BUILD_DOOR_MESSAGE = "Устанавливай дверь";
+        private const string WHAT_TO_BUILD_ROOF_MESSAGE = "Последний этап строительства. Делай крышу";
+        private const string WHAT_TO_BUILD_FINISH_MESSAGE = "Дом полностью построен! Ура, товарищи!";
+
+        private const int CONSTRUCTION_STAGE_ZERO = 0;
+        private const int CONSTRUCTION_STAGE_BASEMENT = 1;
+        private const int CONSTRUCTION_STAGE_WALLS_1 = 2;
+        private const int CONSTRUCTION_STAGE_WALLS_2 = 3;
+        private const int CONSTRUCTION_STAGE_WALLS_3 = 4;
+        private const int CONSTRUCTION_STAGE_WALLS_4 = 5;
+        private const int CONSTRUCTION_STAGE_WINDOWS_1 = 6;
+        private const int CONSTRUCTION_STAGE_WINDOWS_2 = 7;
+        private const int CONSTRUCTION_STAGE_WINDOWS_3 = 8;
+        private const int CONSTRUCTION_STAGE_WINDOWS_4 = 9;
+        private const int CONSTRUCTION_STAGE_DOOR = 10;
+        private const int CONSTRUCTION_STAGE_ROOF = 11;
+        
         public Worker(string teamname, string humanname) : base(teamname) 
         {
             HumanName = humanname;
@@ -49,146 +89,146 @@ namespace HouseBuilding
 
         public string Build(string WhatToBuild, House house)
         {
-            if(WhatToBuild == "Basement" && house.СonstructionStage == 0)
+            if(WhatToBuild == Parts.Basement.ToString() && house.СonstructionStage == 0)
             {
-                house.СonstructionStage = 1;
-                return "Строю фундамент";                
+                house.СonstructionStage = CONSTRUCTION_STAGE_BASEMENT;
+                return WORKER_BASEMENT_MESSAGE;                
             }
 
-            if (WhatToBuild == "Walls" && house.СonstructionStage == 1)
+            if (WhatToBuild == Parts.Walls.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_BASEMENT)
             {
-                house.СonstructionStage = 2;
-                return "Строю первую стену";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WALLS_1;
+                return WORKER_WALLS_1_MESSAGE;
             }
 
-            if (WhatToBuild == "Walls" && house.СonstructionStage == 2)
+            if (WhatToBuild == Parts.Walls.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_1)
             {
-                house.СonstructionStage = 3;
-                return "Строю вторую стену";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WALLS_2;
+                return WORKER_WALLS_2_MESSAGE;
             }
 
-            if (WhatToBuild == "Walls" && house.СonstructionStage == 3)
+            if (WhatToBuild == Parts.Walls.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_2)
             {
-                house.СonstructionStage = 4;
-                return "Строю третью стену";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WALLS_3;
+                return WORKER_WALLS_3_MESSAGE;
             }
 
-            if (WhatToBuild == "Walls" && house.СonstructionStage == 4)
+            if (WhatToBuild == Parts.Walls.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_3)
             {
-                house.СonstructionStage = 5;
-                return "Строю четвертую стену";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WALLS_4;
+                return WORKER_WALLS_4_MESSAGE;
             }
 
-            if (WhatToBuild == "Windows" && house.СonstructionStage == 5)
+            if (WhatToBuild == Parts.Windows.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_4)
             {
-                house.СonstructionStage = 6;
-                return "Ставлю первое окно";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WINDOWS_1;
+                return WORKER_WINDOWS_1_MESSAGE;
             }
 
-            if (WhatToBuild == "Windows" && house.СonstructionStage == 6)
+            if (WhatToBuild == Parts.Windows.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_1)
             {
-                house.СonstructionStage = 7;
-                return "Ставлю второе окно";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WINDOWS_2;
+                return WORKER_WINDOWS_2_MESSAGE;
             }
 
-            if (WhatToBuild == "Windows" && house.СonstructionStage == 7)
+            if (WhatToBuild == Parts.Windows.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_2)
             {
-                house.СonstructionStage = 8;
-                return "Ставлю третье окно";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WINDOWS_3;
+                return WORKER_WINDOWS_3_MESSAGE;
             }
 
-            if (WhatToBuild == "Windows" && house.СonstructionStage == 8)
+            if (WhatToBuild == Parts.Windows.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_3)
             {
-                house.СonstructionStage = 9;
-                return "Ставлю четвертое окно";
+                house.СonstructionStage = CONSTRUCTION_STAGE_WINDOWS_4;
+                return WORKER_WINDOWS_4_MESSAGE;
             }
 
-            if (WhatToBuild == "Door" && house.СonstructionStage == 9)
+            if (WhatToBuild == Parts.Door.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_4)
             {
-                house.СonstructionStage = 10;
-                return "Устанавливаю дверь";
+                house.СonstructionStage = CONSTRUCTION_STAGE_DOOR;
+                return WORKER_DOOR_MESSAGE;
             }
 
-            if (WhatToBuild == "Roof" && house.СonstructionStage == 10)
+            if (WhatToBuild == Parts.Roof.ToString() && house.СonstructionStage == CONSTRUCTION_STAGE_DOOR)
             {
-                house.СonstructionStage = 11;
-                return "Строю крышу";
+                house.СonstructionStage = CONSTRUCTION_STAGE_ROOF;
+                return WORKER_ROOF_MESSAGE;
             }
 
-            if (house.СonstructionStage == 11)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_ROOF)
             {
-                return "Дом уже был простроен";
+                return WORKER_FINISH_MESSAGE;
             }
 
-            if (house.СonstructionStage == 0 && WhatToBuild == "Roof" || WhatToBuild == "Door" || WhatToBuild == "Windows" || WhatToBuild == "Walls")
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_ZERO && WhatToBuild == Parts.Roof.ToString() || WhatToBuild == Parts.Door.ToString() || WhatToBuild == Parts.Windows.ToString() || WhatToBuild == Parts.Walls.ToString())
             {
-                return "Начинать нужно строить с фундамента!";
+                return WORKER_FIRST_MESSAGE;
             }
 
             else
             {
-                return "Эта часть дома не предусмотрена в конструкции";
+                return WORKER_ERROR_MESSAGE;
             }            
         }
         public override string WhatToBuild(House house)
         {
-            if (house.СonstructionStage == 1)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_BASEMENT)
             {
-                return "Строй первую стену";
+                return WHAT_TO_BUILD_WALLS_1_MESSAGE;
             }
 
-            if (house.СonstructionStage == 2)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_1)
             {
-                return "Строй вторую стену";
+                return WHAT_TO_BUILD_WALLS_2_MESSAGE;
             }
 
-            if (house.СonstructionStage == 3)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_2)
             {
-                return "Строй третью стену";
+                return WHAT_TO_BUILD_WALLS_3_MESSAGE;
 
             }
 
-            if (house.СonstructionStage == 4)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_3)
             {
-                return "Строй четвертую стену";
+                return WHAT_TO_BUILD_WALLS_4_MESSAGE;
             }
 
-            if (house.СonstructionStage == 5)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WALLS_4)
             {
-                return "Ставь первое окно";
+                return WHAT_TO_BUILD_WINDOWS_1_MESSAGE;
             }
 
-            if (house.СonstructionStage == 6)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_1)
             {
-                return "Ставь второе окно";
+                return WHAT_TO_BUILD_WINDOWS_2_MESSAGE;
             }
 
-            if (house.СonstructionStage == 7)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_2)
             {
-                return "Ставь третье окно";
+                return WHAT_TO_BUILD_WINDOWS_3_MESSAGE;
             }
 
-            if (house.СonstructionStage == 8)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_3)
             {
-                return "Ставь четвертое окно";
+                return WHAT_TO_BUILD_WINDOWS_4_MESSAGE;
             }
 
-            if (house.СonstructionStage == 9)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_WINDOWS_4)
             {
-                return "Устанавливай дверь";
+                return WHAT_TO_BUILD_DOOR_MESSAGE;
             }
 
-            if (house.СonstructionStage == 10)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_DOOR)
             {
-                return "Последний этап строительства. Делай крышу";
+                return WHAT_TO_BUILD_ROOF_MESSAGE;
             }
 
-            if (house.СonstructionStage == 11)
+            if (house.СonstructionStage == CONSTRUCTION_STAGE_ROOF)
             {
-                return "Дом полностью построен! Ура, товарищи!";
+                return WHAT_TO_BUILD_FINISH_MESSAGE;
             }
 
-            return "Дом еще не строился. Начинай с фундамента.";
+            return WHAT_TO_BUILD_BASEMENT_MESSAGE;
         }
 
         //имя строителя
@@ -254,9 +294,17 @@ namespace HouseBuilding
             hName = name;
         }
 
+        private const int STEP_BASEMENT = 1;       
+        private const int STEP_WALLS = 4;
+        private const int STEP_WINDOWS = 8;
+        private const int STEP_DOOR = 9;
+        private const int STEP_ROOF = 10;
+
+        private const int CONSTRUCTION_STAGE_FINISH = 11;
+        private const int CONSTRUCTION_STAGE_ZERO = 0;
         public bool checkBasement()
         {
-            if (СonstructionStage > 0)
+            if (СonstructionStage > STEP_BASEMENT)
                 return true;
 
             return false;           
@@ -264,7 +312,7 @@ namespace HouseBuilding
 
         public bool checkWalls()
         {
-            if (СonstructionStage > 4)
+            if (СonstructionStage > STEP_WALLS)
                 return true;
             
             return false;           
@@ -272,7 +320,7 @@ namespace HouseBuilding
 
         public bool checkWindows()
         {
-            if (СonstructionStage > 8)
+            if (СonstructionStage > STEP_WINDOWS)
                 return true;
 
             return false;            
@@ -280,14 +328,14 @@ namespace HouseBuilding
 
         public bool checkDoor()
         {
-            if (СonstructionStage > 9)
+            if (СonstructionStage > STEP_DOOR)
                 return true;
 
             return false;            
         }
         public bool checkRoof()
         {
-            if (СonstructionStage > 10)
+            if (СonstructionStage > STEP_ROOF)
                 return true;
 
             return false;            
@@ -339,12 +387,12 @@ namespace HouseBuilding
                 count++;
             }
 
-            if (СonstructionStage == 11)
+            if (СonstructionStage == CONSTRUCTION_STAGE_FINISH)
             {
                 reportСonstruction += "Дом полностью построен.";
             }
 
-            if (count < 0)
+            if (count == CONSTRUCTION_STAGE_ZERO)
             {
                 reportСonstruction = "Дом еще не строился.";
             }          
@@ -454,46 +502,44 @@ namespace HouseBuilding
             //создаем бригадира и закрепляем за ним дом
             TeamLeader leader = new TeamLeader(MyTeam, "Sergey (бригадир)");
 
-            Console.Write("Cтроитель уточняет, что нужно строить: ");         
+            string builderQuestionWhatToBuild = "Cтроитель уточняет, что нужно строить: ";
+            string builderRepotr = "Cтроитель отвечает, что начал строить: ";
+            
+
+            Console.Write(builderQuestionWhatToBuild);         
             Console.WriteLine(builder.WhatToBuild(house));
             Console.WriteLine("\n");
-            Console.Write("Cтроитель отвечает, что начал строить: ");
-            Console.WriteLine(builder.Build("Basement", house));
+            Console.Write(builderRepotr);
+            Console.WriteLine(builder.Build(Parts.Basement.ToString(), house));
             Console.WriteLine("\n");
-            Console.Write("Cтроитель отвечает, что начал строить: ");
-            Console.WriteLine(builder.Build("Walls", house));
-            Console.Write("Cтроитель отвечает, что начал строить: ");
-            Console.WriteLine(builder.Build("Walls", house));
-            Console.Write("Cтроитель отвечает, что начал строить: ");
-            Console.WriteLine(builder.Build("Walls", house));
+            Console.Write(builderRepotr);            
+
+            Console.WriteLine(builder.Build(Parts.Walls.ToString(), house));
+            Console.Write(builderRepotr);
+            Console.WriteLine(builder.Build(Parts.Walls.ToString(), house));
+            Console.Write(builderRepotr);
+            Console.WriteLine(builder.Build(Parts.Walls.ToString(), house));
 
 
             Console.WriteLine("\n");
-            Console.Write("Cтроитель спрашивает, что дальше строить: ");
+            Console.Write(builderQuestionWhatToBuild);
             Console.WriteLine(builder.WhatToBuild(house));
 
-            Console.Write("Cтроитель отвечает, что начал строить: ");
-            Console.WriteLine(builder.Build("Walls", house));
+            Console.Write(builderRepotr);
+            Console.WriteLine(builder.Build(Parts.Walls.ToString(), house));
             Console.WriteLine("\n");
-            Console.Write("Cтроитель спрашивает, что дальше строить: ");
+            Console.Write(builderQuestionWhatToBuild);
             Console.WriteLine(builder.WhatToBuild(house));
             //---------------- Что бы полностью построить дом, раскомментировать ниже код ----------------//
 
-            //string myParts = Parts.Walls.ToString();
+            
 
-            //builder.Build(myParts, house);
-
-            //myParts = Parts.Windows.ToString();
-            //builder.Build(myParts, house);
-            //builder.Build(myParts, house);
-            //builder.Build(myParts, house);
-            //builder.Build(myParts, house);
-
-            //myParts = Parts.Door.ToString();
-            //builder.Build(myParts, house);
-
-            //myParts = Parts.Roof.ToString();
-            //builder.Build(myParts, house);
+            //builder.Build(Parts.Windows.ToString(), house);
+            //builder.Build(Parts.Windows.ToString(), house);
+            //builder.Build(Parts.Windows.ToString(), house);
+            //builder.Build(Parts.Windows.ToString(), house);           
+            //builder.Build(Parts.Door.ToString(), house);           
+            //builder.Build(Parts.Roof.ToString(), house);
 
             //-------------------------------------------------------------------------------------------//
 
