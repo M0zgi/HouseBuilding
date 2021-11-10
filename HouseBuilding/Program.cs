@@ -530,15 +530,13 @@ namespace HouseBuilding
             Console.WriteLine("\n");
             Console.Write(builderQuestionWhatToBuild);
             Console.WriteLine(builder.WhatToBuild(house));
-            //---------------- Что бы полностью построить дом, раскомментировать ниже код ----------------//
-
-            
+            //---------------- Что бы полностью построить дом, раскомментировать ниже код ----------------//            
 
             //builder.Build(Parts.Windows.ToString(), house);
             //builder.Build(Parts.Windows.ToString(), house);
             //builder.Build(Parts.Windows.ToString(), house);
-            //builder.Build(Parts.Windows.ToString(), house);           
-            //builder.Build(Parts.Door.ToString(), house);           
+            //builder.Build(Parts.Windows.ToString(), house);
+            //builder.Build(Parts.Door.ToString(), house);
             //builder.Build(Parts.Roof.ToString(), house);
 
             //-------------------------------------------------------------------------------------------//
